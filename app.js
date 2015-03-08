@@ -1,26 +1,23 @@
 var path = require('path');
+var exec = require('child_process').exec
 var express = require('express')
-var PythonShell = require('python-shell');
 var app = express()
 app.use(express.static(__dirname + '/View'));
 app.use(express.static(__dirname + '/Script'));
-var pyshell = new PythonShell('giffy.py');
 
 app.get('/', function (req, res) {
   res.sendFile('index.html');
 })
  
 app.get('/trend', function (req, res) {
-  // sends a message to the Python script via stdin 
-  //pyshell.send('trend');
-  //pyshell.on('message', function (message) {
-  //  console.log(message);
-  res.send('GET request');
-  console.log("trend");
-  //});
-})
 
-pyshell.end(function (err){});
+  exec("python Script/giffy.py", function (error, stdout, stderr) {
+    res.send(stdout);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }});
+  
+})
 
 var server = app.listen(3000, function () {
   var host = server.address().address
