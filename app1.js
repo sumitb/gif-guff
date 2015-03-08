@@ -49,16 +49,6 @@ app.get('/addPost', function (req, res) {
   
 })
 
-app.get('/getPost', function (req, res) {
-
-  exec("python Script/syncano_helper.py getPost", function (error, stdout, stderr) {
-    res.send(stdout);
-    if (error !== null) {
-      console.log('exec error: ' + error);
-    }});
-  
-})
-
 app.get('/deletePost', function (req, res) {
 
   exec("python Script/syncano_helper.py deletePost "+req.query.folder, function (error, stdout, stderr) {
