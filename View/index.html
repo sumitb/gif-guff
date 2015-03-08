@@ -139,9 +139,16 @@
     <script>
         function trending() {
             $.get( "/trend", function( data ) {
-                //$( ".result" ).html( data );
-                alert( data );
-            });
+                //alert( data );
+            	
+				data = data.split(',');
+				for (d in data) {
+					start = data[d].indexOf("'");
+					end = data[d].lastIndexOf("'");
+					alert(data[d].substr(start-1, end-2));
+					//alert(data[d].substr(data[d].indexOf("'")+1, data[d].lastIndexOf("'")));
+				}
+			});
         }
         /*
         var waypoint = new Waypoint({

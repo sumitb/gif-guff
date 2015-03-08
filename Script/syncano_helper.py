@@ -1,4 +1,5 @@
 from syncano.client import SyncanoApi
+import sys
 
 def get_comments(folder_name):
 	INSTANCE = "holy-surf-639401"
@@ -13,7 +14,7 @@ def get_comments(folder_name):
 	for i in range(0, comments_count):
 		comments.append(data['data']['data'][i]['title'])
 	
-	return comments
+	print comments
 
 def add_post(folder_name):
 	INSTANCE = "holy-surf-639401"
