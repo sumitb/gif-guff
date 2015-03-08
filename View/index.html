@@ -15,10 +15,10 @@
 	   <div class="col-lg-3"></div>
         <div class="col-lg-6">
             <div class="input-group input-group-lg">
-                <input type="text" class="form-control" id="userInput" val="" placeholder="What's on your mind?" aeia-describedby="basic-addon1">
-                    <!--<span class="input-group-btn">
+                <input type="text" class="form-control" id="userInput" val="" placeholder="What's on your mind?">
+                    <span class="input-group-btn">
                         <button class="btn btn-default" type="button"></button>
-                    </span>-->
+                    </span>
             </div>
   		</div>
 	</div>
@@ -37,7 +37,7 @@
                         <span class="glyphicon glyphicon-ok" aria-hidden="true" onclick="add();"></span>
                     </button>
                     <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="remove(); toggler('userViewer');"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="remove(); toggler();"></span>
                     </button>
                     <button type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-refresh" aria-hidden="true" onclick="refresh();"></span>
@@ -133,7 +133,7 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
 	<script src="script.js"></script>
     <script>
-        function toggler(divId) {
+        function toggler() {
 			$('#userViewer').toggle();
 		}
 		function remove() {	
@@ -146,9 +146,9 @@
 			});
 		}
 		function add() {
-			$.get( "/addPost", {folder: $('#imagebox0').src()})
+			$.get( "/addPost", {folder: $('#imagebox0').attr('src')})
 				.done( function( ) {
-					$('#imagebox1').attr('src', $('#imagebox0').src());
+					$('#imagebox1').attr('src', $('#imagebox0').attr('src');
 			});
 		}
 		function trending() {
@@ -173,7 +173,7 @@
         $('#userInput').keyup(function(event){
             if(event.keyCode == 13){
 				//alert($(this).val());
-				toggler('userViewer');
+				toggler();
 				$.get( "/random", {key: $(this).val()})
 					.done( function( data ) {
 						$('#imagebox0').attr('src', data);
