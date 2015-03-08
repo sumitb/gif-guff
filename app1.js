@@ -21,7 +21,7 @@ app.get('/trend', function (req, res) {
 
 app.get('/translate', function (req, res) {
 
-  exec("python Script/giffy.py translate "+req.query.q, function (error, stdout, stderr) {
+  exec("python Script/giffy.py translate "+req.query.key, function (error, stdout, stderr) {
     res.send(stdout);
     if (error !== null) {
       console.log('exec error: ' + error);
@@ -31,7 +31,57 @@ app.get('/translate', function (req, res) {
 
 app.get('/random', function (req, res) {
 
-  exec("python Script/giffy.py random "+req.query.q, function (error, stdout, stderr) {
+  exec("python Script/giffy.py random "+req.query.key, function (error, stdout, stderr) {
+    res.send(stdout);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }});
+  
+})
+
+app.get('/addPost', function (req, res) {
+
+  exec("python Script/syncano_helper.py addPost "+req.query.folder, function (error, stdout, stderr) {
+    res.send(stdout);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }});
+  
+})
+
+app.get('/deletePost', function (req, res) {
+
+  exec("python Script/syncano_helper.py deletePost "+req.query.folder, function (error, stdout, stderr) {
+    res.send(stdout);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }});
+  
+})
+
+app.get('/addComments', function (req, res) {
+
+  exec("python Script/syncano_helper.py addComments "+req.query.folder+" "+req.query.data, function (error, stdout, stderr) {
+    res.send(stdout);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }});
+  
+})
+
+app.get('/getComments', function (req, res) {
+
+  exec("python Script/syncano_helper.py getComments "+req.query.folder, function (error, stdout, stderr) {
+    res.send(stdout);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }});
+  
+})
+
+app.get('/deleteComments', function (req, res) {
+
+  exec("python Script/syncano_helper.py deleteComments "+req.query.folder+" "+req.query.data, function (error, stdout, stderr) {
     res.send(stdout);
     if (error !== null) {
       console.log('exec error: ' + error);

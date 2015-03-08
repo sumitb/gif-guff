@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700">
 </head>
 <body onload="trending()">	
-	
+
 	<div class="row">
 	<div class="col-lg-3">
 	</div>
@@ -46,34 +46,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Posts -->    
-    <div class="input-group" style="margin: auto;">
-      <input type="text" class="form-control" id="userInput" val="" placeholder="What's on your mind?" aeia-describedby="basic-addon1">
-    </div><!-- /input-group -->
-	<!-- Display Top 12 trending pics -->
-    
-	<div id="userViewer" style="display:none">
-		<div id="userImage">
-			<img id="imagebox0" src="http://placehold.it/600x400" class="img-responsive center-block"><br>
-		</div>
-		<div id="userControl">
-			<button type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-			</button>
-			<button type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-			</button>
-			<button type="button" class="btn btn-default" onclick="remove();toggler('userViewer')">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			</button>
-			<button type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-refresh" onclick="refresh()"aria-hidden="true"></span>
-			</button>
-			<button type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-		</div>
-	</div>
+
 
 	<!-- <div id="grid" class="container"> -->
 	<div id="grid">
@@ -164,25 +137,7 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
 	<script src="script.js"></script>
     <script>
-        function toggler(divId) {
-			$("#userViewer").toggle();
-		}
-		function remove() {	
-			$("#userInput").val("");
-		}
-		function refresh() {
-			$.get( "/random", {key: $("#userInput").val()})
-				.done( function( data ) {
-					$('#imagebox0').attr('src', data);
-			});
-		}
-		function add() {
-			$.get( "/addPost", {folder: $('#imagebox0').val()})
-				.done( function( ) {
-					$('#imagebox1').attr('src', $('#imagebox0').val());
-			});
-		}
-		function trending() {
+        function trending() {
             $.get( "/trend", function( data ) {
 				var cnt = 0;
 				data = data.split(',');
@@ -203,19 +158,13 @@
         
         $("#userInput").keyup(function(event){
             if(event.keyCode == 13){
-				//alert($(this).val());
-				toggler('userViewer');
-				$.get( "/random", {key: $(this).val()})
-					.done( function( data ) {
-						$('#imagebox0').attr('src', data);
-					});
-				/*var posting = $.post('/random', {
-					key: $(this).val()
-				});*/
+				alert($(this).attr('placeholder'));
+				var posting = $.post('/feature_select', {
+					featureList: arrFeature
+				});
 				/* Put the results in a div */
-				/*posting.done(function(url) {
-					alert(url);
-				});*/
+				posting.done(function() {
+				});
 			}});
          //$("#userInput").click(function() {
         //});

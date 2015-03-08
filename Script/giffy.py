@@ -14,7 +14,7 @@ def getTrendingJason():
     data = json.loads(urllib.urlopen(trending_giffy_prefix).read())
     count = len(data['data'])
     trend_list = []
-    for i in range(0, (count-1)):
+    for i in range(0, (count)):
 	trend_list.append(data['data'][i]['images']['downsized']['url'])
     print trend_list
 
