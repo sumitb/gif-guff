@@ -39,17 +39,7 @@ app.get('/random', function (req, res) {
   
 })
 
-app.get('/random', function (req, res) {
-
-  exec("python Script/giffy.py random "+req.query.q, function (error, stdout, stderr) {
-    res.send(stdout);
-    if (error !== null) {
-      console.log('exec error: ' + error);
-    }});
-  
-})
-
-var server = app.listen(3000, function () {
+var server = app.listen(4000, function () {
   var host = server.address().address
   var port = server.address().port
 
