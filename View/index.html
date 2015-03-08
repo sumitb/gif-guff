@@ -37,7 +37,7 @@
                         <span class="glyphicon glyphicon-ok" aria-hidden="true" onclick="add();"></span>
                     </button>
                     <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="remove(); toggler();"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="remove();"></span>
                     </button>
                     <button type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-refresh" aria-hidden="true" onclick="refresh();"></span>
@@ -136,8 +136,9 @@
         function toggler() {
 			$('#userViewer').toggle();
 		}
-		function remove() {	
-			$('#userInput').val("");
+		function remove() {
+            toggler();
+			$('#userInput').attr('val', '');
 		}
 		function refresh() {
 			$.get( "/random", {key: $("#userInput").val()})
@@ -146,9 +147,10 @@
 			});
 		}
 		function add() {
-			$.get( "/addPost", {folder: $('#imagebox0').attr('src')})
+			toggler();
+            $.get( "/addPost", {folder: $('#imagebox0').attr('src')})
 				.done( function( ) {
-					$('#imagebox1').attr('src', $('#imagebox0').attr('src');
+					$('#imagebox1').attr('src', $('#imagebox0').attr('src'));
 			});
 		}
 		function trending() {
@@ -161,6 +163,16 @@
 				}
 			});
         }
+        
+        $('#userInput').keyup(function(event){
+            if(event.keyCode == 13){
+				toggler();
+				$.get( "/random", {key: $(this).val()})
+					.done( function( data ) {
+						$('#imagebox0').attr('src', data);
+					});
+			}});
+        
         /*
         var waypoint = new Waypoint({
           element: document.getElementById('#waypoint'),
@@ -168,25 +180,15 @@
             console.log('Scrolled to waypoint!')
           }
         });
-        */
-        
-        $('#userInput').keyup(function(event){
-            if(event.keyCode == 13){
-				//alert($(this).val());
-				toggler();
-				$.get( "/random", {key: $(this).val()})
-					.done( function( data ) {
-						$('#imagebox0').attr('src', data);
-					});
-				/*var posting = $.post('/random', {
+        /*var posting = $.post('/random', {
 					key: $(this).val()
 				});*/
 				/* Put the results in a div */
 				/*posting.done(function(url) {
 					alert(url);
 				});*/
-			}});
-         //$("#userInput").click(function() {
+        */
+        //$("#userInput").click(function() {
         //});
     </script>
 
