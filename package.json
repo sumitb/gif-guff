@@ -1,0 +1,31 @@
+{
+  "name": "gif-guff",
+  "version": "1.0.0",
+  "description": "hackNY",
+  "main": "script.js",
+  "dependencies": {
+    "connect": "^3.3.4",
+    "express": "^4.12.2",
+    "http-server": "^0.7.5",
+    "serve-static": "^1.9.1",
+    "waypoints": "^3.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sumitb/gif-guff.git"
+  },
+  "keywords": [
+    "gif"
+  ],
+  "author": "Sumit Bindal, Abhishek Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sumitb/gif-guff/issues"
+  },
+  "homepage": "https://github.com/sumitb/gif-guff"
+}
