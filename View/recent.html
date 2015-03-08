@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700">
 </head>
-<body onload="trending()">	
+<body onload="recent()">	
 	
 	<div class="row">
 	   <div class="col-lg-3"></div>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
- 
+   
 	 <div class="btn-group" role="group">
      	<button type="button" class="btn btn-default" onclick="location.href='index.html';">
 		Trending
@@ -54,59 +54,18 @@
      	<button type="button" class="btn btn-default" onclick="location.href='recent.html';">
 		Recent
         </button>
-	</div> 
+	</div>
+
 
 	<div id="grid" style="display:inline">
 		<div id="posts">
-			<div class="post">
-				<img id="imagebox1" src="http://placehold.it/600x400"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox2" src="http://placehold.it/400x600"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox3" src="http://placehold.it/600x400"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox4" src="http://placehold.it/400x600"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox5" src="http://placehold.it/600x400"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox6" src="http://placehold.it/400x600"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox7" src="http://placehold.it/600x400"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox8" src="http://placehold.it/400x600"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox9" src="http://placehold.it/600x400"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox10" src="http://placehold.it/400x600"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox11" src="http://placehold.it/600x400"><br>
-			</div>
-			<div class="post">
-				<img id="imagebox12" src="http://placehold.it/400x600"><br>
-			</div>
 		</div>
 	</div>
-    
 
     <script src="http://code.jquery.com/jquery.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
-	<script src="script.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>	
     <script>
-        function toggle(div_id) {
-			$('#'+div_id).toggle();
-		}
-
         function toggler() {
 			$('#userViewer').toggle();
 		}
@@ -127,14 +86,22 @@
 					$('#imagebox1').attr('src', $('#imagebox0').attr('src'));
 			});
 		}
-		function trending() {
-            $.get( "/trend", function( data ) {
+
+		function recent() {
+            $.get( "/getPost", function( data ) {
 				var cnt = 0;
 				data = data.split(',');
+
 				for (d in data) {
 					cnt++;
-                	$('#imagebox' + cnt).attr('src', data[d].substring(data[d].indexOf("'")+1, data[d].lastIndexOf("'")));
+					var url =  data[d].substring(data[d].indexOf("'")+1, data[d].lastIndexOf("'"));
+					$('<div class="post"><img id="imagebox'+cnt+'" src="'+url+'"></div>')
+							.click(function(){
+								window.location.href = "comment.html?folderName="+url;
+							})
+							.appendTo('#posts');
 				}
+
 			});
         }
         
@@ -146,9 +113,10 @@
 						$('#imagebox0').attr('src', data);
 					});
 			}});
-        
-    </script>
 
+
+    </script>
+	<script src="script.js"></script>
 	<!-- Footer -->
 	
 	<footer id="footer" class="container">

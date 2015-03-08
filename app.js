@@ -6,7 +6,7 @@ app.use(express.static(__dirname + '/View'));
 app.use(express.static(__dirname + '/Script'));
 
 app.get('/', function (req, res) {
-  res.sendFile('index1.html');
+  res.sendFile('index.html');
 })
  
 app.get('/trend', function (req, res) {

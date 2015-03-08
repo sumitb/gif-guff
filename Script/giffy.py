@@ -3,7 +3,6 @@ import urllib, json
 import sys
 
 def getRandomJason(keyword):
-
     random_giffy_prefix = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag="
     data = json.loads(urllib.urlopen(random_giffy_prefix + keyword).read())
     print data['data']['image_original_url']

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Gif Guff</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700">
+</head>
+<body onload="comment()">	
+	
+    <div id="userViewer" style="display:inline">
+        <div id="post" class="row">
+            <div class="col-lg-3"></div>
+            <div id="userImage" class="col-lg-6">
+                <img id="imagebox0" src="http://placehold.it/600x400" class="img-responsive center-block"><br>
+            </div>
+        </div>
+    </div>
+   
+	<div id="grid">
+		<div id="posts">
+		</div>
+	</div>
+
+	<br><br>
+	<div class="row" id="comment_box">
+	   <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" id="userInput" val="" placeholder="Add comment.">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"></button>
+                    </span>
+            </div>
+  		</div>
+	</div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+	<script src="script.js"></script>
+    <script>
+        function toggler() {
+			$('#comment_box').toggle();
+		}
+		function remove() {
+            toggler();
+			$('#userInput').attr('val', '');
+		}
+		function refresh() {
+			$.get( "/random", {key: $("#userInput").val()})
+				.done( function( data ) {
+					$('#imagebox0').attr('src', data);
+			});
+		}
+		function getUrlParameter(sParam)
+		{
+			var sPageURL = window.location.search.substring(1);
+			var sURLVariables = sPageURL.split('&');
+			for (var i = 0; i < sURLVariables.length; i++) 
+			{
+				var sParameterName = sURLVariables[i].split('=');
+				if (sParameterName[0] == sParam) 
+				{
+					return sParameterName[1];
+				}
+			}
+		}
+
+		function comment() {
+			var fd = getUrlParameter('folderName');
+			$('#imagebox0').attr('src', fd);
+            $.get( "/getComments", {folder: fd})
+				.done (function( data ) {
+				var cnt = 0;
+				data = data.split(',');
+				for (d in data) {
+					cnt++;
+					var url =  data[d].substring(data[d].indexOf("'")+1, data[d].lastIndexOf("'"));
+					$('<div class="post"><img id="imagebox'+cnt+'" src="'+url+'"></div>').appendTo('#posts');
+				}
+			});
+        }
+ 		function addComments(comment) {
+			var fd = getUrlParameter('folderName');
+            $.get( "/addComments", {folder: fd, data: comment})
+				.done( function( ) {
+					remove();
+					toggler();
+					$('<div class="post"><img id="imagebox100'+'" src="'+comment+'"></div>').appendTo('#posts');
+			});
+		}       
+        $('#userInput').keyup(function(event){
+            if(event.keyCode == 13){
+				$.get( "/translate", {key: $(this).val()})
+					.done( function( data ) {
+						addComments(data);
+					});
+			}});
+        
+    </script>
+	
+</body>
+</html>
