@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Bootstrap Masonry Template</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,7 +17,7 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
-	<script src="script.js"></script>
+	<script src="js/script.js"></script>
 </head>
 <body>
 	
@@ -31,83 +31,84 @@
 			This is deployed with the <code>#grid</code> div fluid (that is, it has no Bootstrap <code>.container</code> class). To make it fixed simply add the <code>.container</code> class to it. Use the media queries in <strong>style.css</strong> to change the grid's post widths and margins.
 		</p>
 		<hr>
-	</header>
+	</header>	
 	
-	
-	
-	<!-- Posts -->
+	<!-- Posts -->    
+    <div class="input-group" style="margin: auto;">
+      <input type="text" class="form-control" placeholder="What's on your mind?" aria-describedby="basic-addon1">
+    </div><!-- /input-group -->
 	
 	<!-- <div id="grid" class="container"> -->
 	<div id="grid">
 		<div id="posts">
 			<div class="post">
-				<img src="http://placehold.it/600x400"><br>
+				<img id="imagebox1" src="http://placehold.it/600x400"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/400x600"><br>
+				<img id="imagebo2" src="http://placehold.it/400x600"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/600x400"><br>
+				<img id="imagebox3" src="http://placehold.it/600x400"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/400x600"><br>
+				<img id="imagebox4" src="http://placehold.it/400x600"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post cs2">
-				<img src="http://placehold.it/600x400"><br>
+				<img id="imagebox5" src="http://placehold.it/600x400"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/400x600"><br>
+				<img id="imagebox6" src="http://placehold.it/400x600"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/600x400"><br>
+				<img id="imagebox7" src="http://placehold.it/600x400"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/400x600"><br>
+				<img id="imagebox8" src="http://placehold.it/400x600"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/600x400"><br>
+				<img id="imagebox9" src="http://placehold.it/600x400"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/400x600"><br>
+				<img id="imagebox10" src="http://placehold.it/400x600"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/600x400"><br>
+				<img id="imagebox11" src="http://placehold.it/600x400"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
 			</div>
 			<div class="post">
-				<img src="http://placehold.it/400x600"><br>
+				<img id="imagebox12" src="http://placehold.it/400x600"><br>
 				<br>
 				<strong>Title Goes Here</strong><br>
 				<small>Category</small>
@@ -115,7 +116,37 @@
 		</div>
 	</div>
 
-
+    <script>
+        var waypoint = new Waypoint({
+          element: document.getElementById('#waypoint'),
+          handler: function(direction) {
+            console.log('Scrolled to waypoint!')
+          }
+        });
+        
+        $("#basic-addon1").keyup(function(event){
+            if(event.keyCode == 13){
+                $("#basic-addon1").click();
+            }
+        });
+        
+         $("#basic-addon1").click(function() {
+            var posting = $.post('/feature_select', {
+                featureList: arrFeature
+            });
+            /* Put the results in a div */
+            posting.done(function() {
+                var dataDir = '/data/'
+                var imgPath = pt1Img;//"TCGA-02-0010-01Z-00-DX4.07de2e55-a8fe-40ee-9e98-bcb78050b9f7.004096.000000"
+            imgPath = imgPath.replace('.jpg', '');
+            if (pt1Img == '')
+                alert('Im here');
+                $('#imagebox1').attr('src', dataDir + imgPath + '.kmeans.png');
+                $('#imagebox2').attr('src', dataDir + imgPath + '.dbscan.png');
+                $('#imagebox3').attr('src', dataDir + imgPath + '.uiQueryPolyMark.jpg');
+            });
+        });
+    </script>
 
 	<!-- Footer -->
 	
